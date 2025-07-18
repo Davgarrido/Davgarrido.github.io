@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Storytelling Digital - Farmacovigilancia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Prevenir Reacciones Graves a Medicamentos</h1>
+    <p><em>patrones ocultos en los efectos adversos reportados a la FDA</em></p>
+  </header>
+
+  <section>
+    <h2>Introducción: Más Allá de la Predicción</h2>
+    <p>Los eventos adversos son reacciones no deseadas que pueden surgir durante el uso de medicamentos, desde efectos leves hasta consecuencias graves. La farmacovigilancia, que busca prevenir estos riesgos, se apoya en la minería de datos para identificar patrones entre pacientes, medicamentos y efectos reportados. Este proyecto se enfocó en predecir la gravedad de los eventos y, sobre todo, en identificar perfiles de riesgo asociados, facilitando una mejor toma de decisiones clínicas y regulatorias.</p>
+  </section>
+
+  <section>
+    <h2>Parte 1: Exploración Inicial de los Datos</h2>
+    <p>Antes de modelar, exploramos quiénes eran los pacientes y cómo se distribuían variables como la edad, el número de medicamentos y la gravedad de los eventos.</p>
+    <p>📊 Distribución de edades, gravedad y medicamentos</p>
+
+    <img src="img/distribucion_edad.png" alt="Distribución edad">
+  </section>
+
+  <section>
+    <h2>Parte 2: Preprocesamiento y Limpieza</h2>
+    <p>Realizamos un proceso exhaustivo de limpieza y codificación de datos. Este paso fue crucial para garantizar que los modelos y el análisis posterior fueran confiables.</p>
+    <p>📉 Distribución de valores nulos</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Columna</th>
+          <th>Valores Nulos</th>
+          <th>Porcentaje (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>peso</td><td>8044</td><td>80.44</td></tr>
+        <tr><td>edad</td><td>3381</td><td>33.81</td></tr>
+        <tr><td>edad_categoria</td><td>3344</td><td>33.44</td></tr>
+        <tr><td>sexo</td><td>0</td><td>0.00</td></tr>
+        <tr><td>medicamento_principal</td><td>0</td><td>0.00</td></tr>
+        <tr><td>reaccion_principal</td><td>0</td><td>0.00</td></tr>
+        <tr><td>pais</td><td>0</td><td>0.00</td></tr>
+        <tr><td>fecha</td><td>0</td><td>0.00</td></tr>
+        <tr><td>gravedad</td><td>0</td><td>0.00</td></tr>
+        <tr><td>resultado</td><td>0</td><td>0.00</td></tr>
+        <tr><td>num_medicamentos</td><td>0</td><td>0.00</td></tr>
+        <tr><td>num_reacciones</td><td>0</td><td>0.00</td></tr>
+      </tbody>
+    </table>
+    <p>📉MANEJO DE VALORES NULOS CON KNN</p>
+    <img src="img/valores_nulos.png" alt="Valores nulos">
+  </section>
+
+  <section>
+    <h2>Parte 3: Modelos de Clasificación</h2>
+    <p>🔍 Resultados principales</p>
+    <p>Usamos modelos supervisados como Random Forest y XGBoost para predecir si un evento adverso sería grave o no.</p>
+    <img src="img/roc_curve.png" alt="ROC Curve">
+  </section>
+
+  <section>
+    <h2>Parte 4: Clustering de Pacientes</h2>
+    <p>🎯 Se identificaron 7 clusters con perfiles únicos.</p>
+    <img src="img/clusters_pca_3d.png" alt="Clustering 3D">
+    <table>
+      <thead>
+        <tr>
+          <th>Cluster</th>
+          <th>Pacientes</th>
+          <th>Edad Prom.</th>
+          <th>Peso Prom.</th>
+          <th>Medicamentos Prom.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>1212</td><td>43.8</td><td>89.6</td><td>2.7</td></tr>
+        <tr><td>1</td><td>880</td><td>63.6</td><td>74.5</td><td>9.8</td></tr>
+        <tr><td>2</td><td>830</td><td>21.3</td><td>62.8</td><td>2.8</td></tr>
+        <tr><td>3</td><td>144</td><td>60.5</td><td>74.2</td><td>23.1</td></tr>
+        <tr><td>4</td><td>4174</td><td>58.0</td><td>73.0</td><td>1.8</td></tr>
+        <tr><td>5</td><td>1264</td><td>75.2</td><td>62.7</td><td>2.7</td></tr>
+        <tr><td>6</td><td>1496</td><td>68.3</td><td>83.9</td><td>2.4</td></tr>
+      </tbody>
+    </table>
+
+    <p> 📈 Relaciones clave descubiertas:</p>
+    <ul>
+      <li>Edad más avanzada se asocia a mayor cantidad de medicamentos (Cluster 1 y 3)</li>
+      <li>Clusters con pacientes jóvenes y bajo peso tienden a usar pocos medicamentos</li>
+      <li>Se identificó un grupo (Cluster 3) con un número excesivamente alto de medicamentos (23 en promedio)</li>    
+      
+    </ul>
+  </section>
+   
+  <section>
+    <h2>Conclusiones Finales</h2>
+    <h4>🔍 Hallazgos clave</h4>
+    <p>Los modelos predictivos funcionan, pero no explican quiénes son los pacientes de riesgo.
+    El clustering reveló segmentos de pacientes con características claras, lo que puede orientar decisiones clínicas.
+    El grupo con mayor medicación (Cluster 3) representa un perfil de riesgo alto que merece mayor monitoreo.</p>
+  </section>
+  
+<section>
+    <h2>Limitaciones</h2>
+    <p>Objetivos no completados:</p>
+  <h4>Limitaciones del Análisis</h4>
+  <ul>
+    <li>No se logró vincular directamente los perfiles con la gravedad del evento (limitación de datos).</li>
+    <li>No se aplicó seguimiento temporal (como series temporales o cohortes).</li>
+    <li>Algunos clusters pueden requerir validación clínica real.</li>
+  </ul>
+
+  </section>
+  
+  <footer>
+    <p>David Garrido | Victor Ayala | Yerson Molina - Minería de Datos 2025</p>
+  </footer>
+</body>
+</html>
+
+
+<!-- <section>
+  <h2>Parte 3: Modelos de Clasificación</h2>
+  <p>📊 Análisis de outliners</p>
+<img src="img/boxplot.png">
+</section> -->
